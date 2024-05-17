@@ -1,6 +1,234 @@
 # Introduction
+- boilerplate 만들기 
+- 항상 존재하는 코드를 계속 만들기 귀찮음
+
+#  node, express 설치
+- node: cross-platform, javascript runtime enviroment,
+- execute javascript code outside of a browser
+
+- node 설치 여부 확인
+    - node -v
+- 프로젝트 디렉토리 만들기 
+    - mkdir study-react-node-login
+- 새로운 npm package 만들기
+    - npm init
+    - package.json 이 생성됨
+    - index.js : 백엔드 시작점
+- express.js 다운로드 : node_module -> 다운받은 dependency 들은 이 폴더에서 관리됨
+- index.js에서 express앱 만들기
+    - [EXPRESSJS 예제 링크](https://expressjs.com/en/starter/hello-world.html "Hello world example")
+
+```javascript
+    const express = require('express') // express 모듈을 가져온다...
+    const app = express()
+    const port = 5000
+
+    app.get('/', (req, res) => { //express를 이용하여 요청을 처리
+    res.send('Hello World!')
+    })
+
+    app.listen(port, () => { //express를 이용하여 서버 기동
+    console.log(`Example app listening on port ${port}`)
+    })
+```
+
+# MongoDB 연결
+ - [몽고DB 사이드 가기](https://www.mongodb.com/) 
+ - 회원가입하기
+ - cluster 만들기
+ - 몽고DB 유저 생성 (아이디 / 비번 메모장에 기록)
+
+ - [mongoose 알아보기](https://www.npmjs.com/package/mongoose "몽구스알아보기")
+ - mongoose 다운로드
+    - nmp install mongoose --save
+
+```javascript
+    {
+    "name": "study-react-node-login",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.19.2",
+        "mongoose": "^8.3.5"
+    }
+    }
+```
+- APP에 MongoDB 연결하기
+```javascript
+    const express = require('express') // express 모듈을 가져온다...
+    const app = express()
+    const port = 5000
+
+    const mongoose = require("mongoose")
+    mongoose.connect('mongodb+srv://roadseeker:1q2w3e4r1!@boilerplate.rfd3gnc.mongodb.net/?retryWrites=true&w=majority&appName=boilerplate', 
+    {})
+        .then(() => console.log("MongoDB Connected..."))
+        .catch(err => console.log(err))
+
+    app.get('/', (req, res) => {
+    res.send('Hello World!  안녕하세요')
+    })
+
+    app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+    })
+
+```
+
+# 모델 생성하기
+- db가 이해할수 있는 schema 작성
+- db schema를 객체 모델로 연결
+- Mongoose model provides an interface to the database for creating, updating, deleting, records, etc
+```javascript
+//User.js
+const mongoose = require("mongoose");
+
+const userSchema = mongoose.Schema({
+    name: {
+        type: String,
+        maxLength: 50;
+    },
+    email: {
+        type: String,
+        trim: true,
+        unique: 1
+    },
+    password: {
+        type: String,
+        maxLength: 5
+    },
+    lastname: {
+        type: String,
+        maxLength: 50
+    },
+    role: {
+        type: Number,
+        default: 0
+    },
+    image: String,
+    token: {
+        type: String,
+    },
+    tokenExp: {
+        type: Number,
+    },
+})
+
+const User = mongoose.model("User", userSchema)
+
+module.exports = {User}
+
+```
+
+# Git 설치하기 및 사용하기
+
+- Git이 무엇인가
+    - Git is a distributed version controll system designed to handle everything from small
+    to very large projects with speed and efficiency
+- Git 설치 여부 확인
+    - git --version
+- Git 저장소 초기화
+```
+$ git init
+Initialized empty Git repository in C:/study/study-react-node-login/.git/
+```
+- Git 상태확인
+    - git status
+```
+$ git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   .gitignore
+        new file:   index.js
+        new file:   models/User.js
+        new file:   package-lock.json
+        new file:   package.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        help.md
+```
+- Git add
+    - git add .
+```
+$ git add .
+
+$ git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   .gitignore
+        new file:   help.md
+        new file:   index.js
+        new file:   models/User.js
+        new file:   package-lock.json
+        new file:   package.json
+```
+- gitignore파일 만들기
+```
+$ touch .gitignore
+```
+- gitignore.io 에서 node,react,visualstudiocode 환경의 gitignore contents 만들기
+    - [gitignore.io](https://www.toptal.com/developers/gitignore/)는 언어, OS 나 Framework, IDE 별로 저장소에 추가되면 안 되는 파일과 폴더 목록인 .gitignore 를 자동으로 생성해 주는 서비스이다.
+
+- Git 커밋하기
+```
+$ git config user.email kyoungik.lee+1@gmail.com
+
+$ git config user.email
+kyoungik.lee+1@gmail.com
+
+$ git config user.name kyoungik.lee
+
+$ git config user.name
+kyoungik.lee
+
+$ git commit -m "initial commit"
+[main (root-commit) 93109a7] initial commit
+ 6 files changed, 1278 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 help.md
+ create mode 100644 index.js
+ create mode 100644 models/User.js
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+```
+
+- 참고 add 한 파일을 staging에서 지우기
+```
+$ git rm --cached node_module -r
+```
+
+# ssh github 설정하기
+
+- github repository 생성
+- 접속 설정
+```
+$ git remote add origin https://github.com/kyoungiklee/study-react-node-login.git
+$ git branch -M main
+$ git push -u origin main
+```
+- ssh 설정
+```
+$ ls -a ~/.ssh
+./  ../  id_rsa  id_rsa.pub  known_hosts
 
 
+```
 
 
 # 아래내용은 마크다운 사용법 참조용(세미나와 관련없음)
