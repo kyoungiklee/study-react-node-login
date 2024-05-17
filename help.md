@@ -135,13 +135,13 @@ module.exports = {User}
 - Git 설치 여부 확인
     - git --version
 - Git 저장소 초기화
-```
+```shell
 $ git init
 Initialized empty Git repository in C:/study/study-react-node-login/.git/
 ```
 - Git 상태확인
     - git status
-```
+```shell
 $ git status
 On branch main
 
@@ -161,7 +161,7 @@ Untracked files:
 ```
 - Git add
     - git add .
-```
+```shell
 $ git add .
 
 $ git status
@@ -179,14 +179,14 @@ Changes to be committed:
         new file:   package.json
 ```
 - gitignore파일 만들기
-```
+```shell
 $ touch .gitignore
 ```
 - gitignore.io 에서 node,react,visualstudiocode 환경의 gitignore contents 만들기
     - [gitignore.io](https://www.toptal.com/developers/gitignore/)는 언어, OS 나 Framework, IDE 별로 저장소에 추가되면 안 되는 파일과 폴더 목록인 .gitignore 를 자동으로 생성해 주는 서비스이다.
 
 - Git 커밋하기
-```
+```shell
 $ git config user.email kyoungik.lee+1@gmail.com
 
 $ git config user.email
@@ -223,12 +223,77 @@ $ git branch -M main
 $ git push -u origin main
 ```
 - ssh 설정
-```
-$ ls -a ~/.ssh
-./  ../  id_rsa  id_rsa.pub  known_hosts
+```shell
+$ ssh-keygen -t rsa -b 4096 -C "kyoungik.lee+1@gmail.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/LG/.ssh/id_rsa): 
+/c/Users/LG/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/LG/.ssh/id_rsa
+Your public key has been saved in /c/Users/LG/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:N/C5fsY0Xk7FCvIbKG/5sp+bqjEXiBTW618MhUAkp+I kyoungik.lee+1@gmail.com
+The key's randomart image is:
++---[RSA 4096]----+
+|      ++=. .     |
+|     . =. . .    |
+|    . o .. .   . |
+|   . o ..+o..   o|
+|    E ..S ** . o |
+|        o..+B +  |
+|        o+o* B   |
+|         =* *o.  |
+|        .o+O*.   |
++----[SHA256]-----+
 
 
+$ eval "$(ssh-agent -s)"
+Agent pid 1734
+
+$ ssh-add ~/.ssh/id_rsa
+Identity added: /c/Users/LG/.ssh/id_rsa (kyoungik.lee+1@gmail.com)
+
+
+$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGzvne4O1Eb9CP38b0Q3i/dtfoGYwmZuryxZGqDDyGZQbOJ3yFDvt1xM9z/c3AsUoIJJK+X2iJq98wfrt1QRfdnKABcOI7f21lc7VYwUPWwpwjjrMabbcuFlWcx7/TM/pkydZEPDiDCC5/qaHl89cqvGSCFvItgrp2HtmnnkBsr26m7pJmI6Is0g3b9vcy5KebxQmAhrUa/X5t2M2E4we/v4jiZu/O5sbPwAeDPa9sit3mgq/H/QN+9xL1ThmvSQwBAJBLC8SLJE6ni+8NGEQucf88FmF3BRJj9HNxcEsIO+Nx9uki98Yh42u2Zfk2l7Ys/YAHKiuFtLQN7mw3KeyqMBH8r7bSSee6yQ/TbNOGWOMuAsCKA8CfPrXvZWmuCEWRV0hvQr4XWfJTuAJnR4w3CHw12Pv0IX3/VRVVuXiiv+PPw527icpEnBDXP+dn+k5fRNH1ooiHcx7hkTFKVp4368wZjg/wXTHmIBXHDJYRLePRwUjhC2tYYRPKk9AA7l3k3eyD682QWz4FZLEelVRIxu7GpjyjLt9aqtQFSM+9nk1+KUccOHtzn2kETHczL+kuvCXP6Zlu8LTSYeC8k3M39E/sweo23SSQ1qxE++B+JLT1Oywd0cbendk7tqlBexzCjgr8HLN1rUryLhRsT8GCTrqQwFE3qjRCeWgZhVe+gQ== kyoungik.lee+1@gmail.com
+
+$  git remote add origin https://github.com/kyoungiklee/study-react-node-login.git
+
+$  git branch -M main
+
+$  git push -u origin main
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (9/9), 13.25 KiB | 2.21 MiB/s, done.
+Total 9 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/kyoungiklee/study-react-node-login.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
 ```
+
+# 회원 가입 기능 만들기
+- body-paser dependency 인스톨하기
+```sh
+
+$ npm install body-parser --save
+
+up to date, audited 85 packages in 820ms
+
+13 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+- postman 설치
+    - 클라이언트 없이 데이터를 보내고 응답을 받을 수 있는 툴
+
+- 
 
 
 # 아래내용은 마크다운 사용법 참조용(세미나와 관련없음)
